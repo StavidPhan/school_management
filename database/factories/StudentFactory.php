@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Guardian;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Student>

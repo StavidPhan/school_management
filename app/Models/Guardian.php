@@ -4,27 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Student extends Model
+class Guardian extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
-        'student_id',
-        'address_1',
-        'address_2',
-        'standard_id',
+        'contact_number',
+        'relation_type',
     ];
 
-    public function standard(): BelongsTo
-    {
-        return $this->belongsTo(Standard::class);
-    }
-
-    public function guardians(): BelongsToMany
+    public function students(): BelongsToMany
     {
         return $this->belongsToMany(Guardian::class);
     }
