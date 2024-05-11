@@ -17,6 +17,11 @@ class Student extends Model
         'address_1',
         'address_2',
         'standard_id',
+        'vitals',
+    ];
+
+    protected $casts = [
+        'vitals' => 'array',
     ];
 
     public function standard(): BelongsTo

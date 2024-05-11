@@ -58,6 +58,25 @@ class StudentResource extends Resource
                 ])
                 ->columnSpan('full')
                 ->skippable(),
+
+                Forms\Components\Section::make('Vitals')
+                    ->schema([
+                        Forms\Components\Repeater::make('vitals')
+                            ->schema([
+                                Forms\Components\Select::make('name')
+                                    ->options([
+                                        'height' => 'Height',
+                                        'weight' => 'Weight',
+                                        'blood_type' => 'Blood Type',
+                                    ])
+                                    ->required(),
+                                Forms\Components\TextInput::make('value')
+                                    ->required(),
+                            ])
+                            ->columns(2)
+                    ])
+                    ->description('Add the student\'s vitals')
+                    ->collapsed(),
             ]);
     }
 

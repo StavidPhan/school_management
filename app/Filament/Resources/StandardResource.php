@@ -66,8 +66,8 @@ class StandardResource extends Resource
     {
         return [
             'index' => Pages\ListStandards::route('/'),
-//            'create' => Pages\CreateStandard::route('/create'),
-//            'edit' => Pages\EditStandard::route('/{record}/edit'),
+            'create' => Pages\CreateStandard::route('/create'),
+            'edit' => Pages\EditStandard::route('/{record}/edit'),
         ];
     }
 }
