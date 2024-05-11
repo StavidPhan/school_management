@@ -29,17 +29,35 @@ class StudentResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->minLength(3),
-                Forms\Components\TextInput::make('student_id')
-                    ->required(),
-                Forms\Components\TextInput::make('address_1')
-                    ->required(),
-                Forms\Components\TextInput::make('address_2'),
-                Forms\Components\Select::make('standard_id')
-                    ->required()
-                    ->relationship('standard', 'name'),
+                Forms\Components\Wizard::make([
+                    Forms\Components\Wizard\Step::make('Personal Information')
+                        ->schema([
+                            Forms\Components\TextInput::make('name')
+                                ->required()
+                                ->minLength(3),
+                            Forms\Components\TextInput::make('student_id')
+                                ->required(),
+                        ])
+                        ->description('Enter the student\'s personal information')
+                        ->icon('heroicon-o-users'),
+                    Forms\Components\Wizard\Step::make('Address')
+                        ->schema([
+                            Forms\Components\TextInput::make('address_1')
+                                ->required(),
+                            Forms\Components\TextInput::make('address_2'),
+                        ])
+                        ->description('Add the student\'s address information')
+                        ->icon('heroicon-o-home'),
+                    Forms\Components\Wizard\Step::make('School')
+                        ->schema([
+                            Forms\Components\Select::make('standard_id')
+                                ->required()
+                                ->relationship('standard', 'name'),
+                        ])
+                        ->icon('heroicon-o-academic-cap'),
+                ])
+                ->columnSpan('full')
+                ->skippable(),
             ]);
     }
 
