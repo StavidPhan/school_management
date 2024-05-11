@@ -68,6 +68,22 @@ class StudentResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\Action::make('Promote')
+                        ->action(fn (Student $student) => $student->update(['standard_id' => $student->standard_id + 1]))
+                        ->visible(fn (Student $student) => $student->standard_id < 5)
+                        ->color('success')
+                        ->requiresConfirmation(),
+                    Tables\Actions\Action::make('Demote')
+                        ->action(function (Student $student) {
+                            if ($student->standard_id > 1) {
+                                $student->update(['standard_id' => $student->standard_id - 1]);
+                            }
+                        })
+                        ->visible(fn (Student $student) => $student->standard_id > 1)
+                        ->color('danger')
+                        ->requiresConfirmation(),
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
