@@ -6,6 +6,7 @@ use App\Events\PromoteStudent;
 use App\Filament\Resources\StudentResource\Pages;
 use App\Filament\Resources\StudentResource\RelationManagers;
 use App\Filament\Resources\StudentResource\RelationManagers\GuardiansRelationManager;
+use App\Models\Certificate;
 use App\Models\Student;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -58,6 +59,19 @@ class StudentResource extends Resource
                 ])
                 ->columnSpan('full')
                 ->skippable(),
+
+                Forms\Components\Section::make('Certificates')
+                    ->description('Add student certificate information')
+                    ->schema ([
+                        Forms\Components\Repeater::make('certificates')
+                            ->relationship()
+                            ->schema([
+                                Forms\Components\Select::make('certificate_id')
+                                    ->options(Certificate::all()->pluck('name', 'id')),
+                                Forms\Components\TextInput::make('description')
+                            ])
+                            ->columns(2),
+                    ]),
 
                 Forms\Components\Section::make('Vitals')
                     ->schema([
